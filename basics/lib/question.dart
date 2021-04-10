@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class Question extends StatelessWidget {
-  const Question({required this.questionText});
-
   final String questionText;
 
+  Question(this.questionText);
+
   @override
-  Widget build(context) {
+  Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.all(10),
