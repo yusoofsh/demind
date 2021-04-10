@@ -18,7 +18,7 @@ class Answer extends StatelessWidget {
           ),
         ),
         child: Text(answerText),
-        onPressed: selectHandler(),
+        onPressed: () => selectHandler,
       ),
     );
   }
