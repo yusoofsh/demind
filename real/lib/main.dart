@@ -31,8 +31,8 @@ class MyHomePage extends StatelessWidget {
       date: DateTime.now(),
     ),
   ];
-  String? _titleInput;
-  String? _amountInput;
+  final _titleController = TextEditingController();
+  final _amountController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -59,18 +59,16 @@ class MyHomePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   TextField(
+                    controller: _titleController,
                     decoration: InputDecoration(
                       labelText: 'Title',
                     ),
-                    onChanged: (val) {
-                      _titleInput = val;
-                    },
                   ),
                   TextField(
+                    controller: _amountController,
                     decoration: InputDecoration(
                       labelText: 'Amount',
                     ),
-                    onChanged: (val) => _amountInput = val,
                   ),
                   TextButton(
                     child: Text(
@@ -80,8 +78,8 @@ class MyHomePage extends StatelessWidget {
                       primary: Colors.purple,
                     ),
                     onPressed: () {
-                      print(_titleInput);
-                      print(_amountInput);
+                      print(_titleController.text);
+                      print(_amountController.text);
                     },
                   ),
                 ],
