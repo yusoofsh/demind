@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
+// ignore: must_be_immutable
 class MyHomePage extends StatelessWidget {
   final List<Transaction> _transactions = [
     Transaction(
@@ -30,6 +31,8 @@ class MyHomePage extends StatelessWidget {
       date: DateTime.now(),
     ),
   ];
+  String? _titleInput;
+  String? _amountInput;
 
   @override
   Widget build(BuildContext context) {
@@ -59,11 +62,15 @@ class MyHomePage extends StatelessWidget {
                     decoration: InputDecoration(
                       labelText: 'Title',
                     ),
+                    onChanged: (val) {
+                      _titleInput = val;
+                    },
                   ),
                   TextField(
                     decoration: InputDecoration(
                       labelText: 'Amount',
                     ),
+                    onChanged: (val) => _amountInput = val,
                   ),
                   TextButton(
                     child: Text(
@@ -72,7 +79,10 @@ class MyHomePage extends StatelessWidget {
                     style: TextButton.styleFrom(
                       primary: Colors.purple,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      print(_titleInput);
+                      print(_amountInput);
+                    },
                   ),
                 ],
               ),
