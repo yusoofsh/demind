@@ -10,10 +10,27 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter App',
+      title: 'Personal Expenses',
       theme: ThemeData(
         primarySwatch: Colors.amber,
         accentColor: Colors.purpleAccent,
+        fontFamily: 'Quicksand',
+        textTheme: Theme.of(context).textTheme.copyWith(
+              headline6: TextStyle(
+                fontFamily: 'OpenSans',
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+        appBarTheme: AppBarTheme(
+          textTheme: Theme.of(context).textTheme.copyWith(
+                headline6: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+        ),
       ),
       home: MyHomePage(),
     );
@@ -26,20 +43,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<TransactionModel> _transactions = [
-    TransactionModel(
-      id: 't1',
-      title: 'Nice Shoes',
-      amount: 69.42,
-      date: DateTime.now(),
-    ),
-    TransactionModel(
-      id: 't2',
-      title: 'Banana Good Grade',
-      amount: 11.31,
-      date: DateTime.now(),
-    ),
-  ];
+  final List<TransactionModel> _transactions = [];
 
   void _addNewTransaction(
     String title,
@@ -68,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Flutter App'),
+        title: Text('Personal Expenses'),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
