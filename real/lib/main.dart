@@ -11,6 +11,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter App',
+      theme: ThemeData(
+        primarySwatch: Colors.amber,
+        accentColor: Colors.purpleAccent,
+      ),
       home: MyHomePage(),
     );
   }
@@ -78,7 +82,6 @@ class _MyHomePageState extends State<MyHomePage> {
             Container(
               width: double.infinity,
               child: Card(
-                color: Colors.blue,
                 child: Text('CHART!'),
                 elevation: 5,
               ),
