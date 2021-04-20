@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/debugging/debugging.iml" filepath="$PROJECT_DIR$/debugging/debugging.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/demind.iml" filepath="$PROJECT_DIR$/.idea/demind.iml" />
       <module fileurl="file://$PROJECT_DIR$/real/real.iml" filepath="$PROJECT_DIR$/real/real.iml" />
+      <module fileurl="file://$PROJECT_DIR$/resp/resp.iml" filepath="$PROJECT_DIR$/resp/resp.iml" />
       <module fileurl="file://$PROJECT_DIR$/tasks/tasks.iml" filepath="$PROJECT_DIR$/tasks/tasks.iml" />
     </modules>
   </component>

@@ -12,6 +12,9 @@
       <excludeFolder url="file://$MODULE_DIR$/real/.pub" />
       <excludeFolder url="file://$MODULE_DIR$/real/build" />
       <excludeFolder url="file://$MODULE_DIR$/real/.dart_tool" />
+      <excludeFolder url="file://$MODULE_DIR$/resp/build" />
+      <excludeFolder url="file://$MODULE_DIR$/resp/.pub" />
+      <excludeFolder url="file://$MODULE_DIR$/resp/.dart_tool" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
