@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class NewTransactionWidget extends StatefulWidget {
-  final Function(String, double) addNewTransaction;
+  final Function(
+    String,
+    double,
+    DateTime,
+  ) addNewTransaction;
 
   NewTransactionWidget(
     this.addNewTransaction,
@@ -18,16 +22,17 @@ class _NewTransactionWidgetState extends State<NewTransactionWidget> {
   DateTime? _selectedDate;
 
   void _submitData() {
-    final _titleValue = _titleController.text;
-    final _amountValue = double.parse(_amountController.text);
+    final titleValue = _titleController.text;
+    final amountValue = double.parse(_amountController.text);
 
-    if (_titleValue.isEmpty || _amountValue <= 0) {
+    if (titleValue.isEmpty || amountValue <= 0 || _selectedDate == null) {
       return;
     }
 
     widget.addNewTransaction(
-      _titleController.text,
-      double.parse(_amountController.text),
+      titleValue,
+      amountValue,
+      _selectedDate!,
     );
 
     Navigator.pop(context);
@@ -37,10 +42,12 @@ class _NewTransactionWidgetState extends State<NewTransactionWidget> {
     showDatePicker(
       context: context,
       initialDate: DateTime.now(),
-      firstDate: DateTime(2021),
+      firstDate: DateTime(DateTime.now().year),
       lastDate: DateTime.now(),
     ).then((date) {
-      if (date == null) return;
+      if (date == null) {
+        return;
+      }
       setState(() => _selectedDate = date);
     });
   }
