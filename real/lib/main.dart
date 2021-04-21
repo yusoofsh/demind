@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
+import './transaction/new_transaction_widget.dart';
+import './transaction/transaction_chart_widget.dart';
 import './transaction/transaction_list_widget.dart';
 import './transaction/transaction_model.dart';
-import 'transaction/new_transaction_widget.dart';
-import 'transaction/transaction_chart_widget.dart';
 
 void main() => runApp(MyApp());
 
@@ -60,12 +60,13 @@ class _MyHomePageState extends State<MyHomePage> {
   void _addNewTransaction(
     String title,
     double amount,
+    DateTime chosenDate,
   ) {
     final _newTransaction = TransactionModel(
       id: DateTime.now().toString(),
       title: title,
       amount: amount,
-      date: DateTime.now(),
+      date: chosenDate,
     );
 
     setState(() => _transactions.add(_newTransaction));
@@ -74,9 +75,15 @@ class _MyHomePageState extends State<MyHomePage> {
   void _startAddNewTransaction(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      builder: (_) => NewTransactionWidget(
-        _addNewTransaction,
-      ),
+      builder: (_) {
+        return GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          child: NewTransactionWidget(
+            _addNewTransaction,
+          ),
+          onTap: () {},
+        );
+      },
     );
   }
 
@@ -104,11 +111,9 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             TransactionChartWidget(_recentTransactions),
-            Expanded(
-              child: TransactionListWidget(
-                transactions: _transactions,
-                deleteTransaction: _deleteTransaction,
-              ),
+            TransactionListWidget(
+              transactions: _transactions,
+              deleteTransaction: _deleteTransaction,
             ),
           ],
         ),
