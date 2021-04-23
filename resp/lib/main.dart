@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Personal Expenses',
       theme: ThemeData(
-        primarySwatch: Colors.amber,
+        primarySwatch: Colors.green,
         accentColor: Colors.purpleAccent,
         fontFamily: 'Quicksand',
         textTheme: Theme.of(context).textTheme.copyWith(
@@ -22,7 +22,6 @@ class MyApp extends StatelessWidget {
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
-              button: TextStyle(color: Colors.white),
             ),
         appBarTheme: AppBarTheme(
           textTheme: Theme.of(context).textTheme.copyWith(
@@ -30,6 +29,7 @@ class MyApp extends StatelessWidget {
                   fontFamily: 'OpenSans',
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
+                  color: Colors.black,
                 ),
               ),
         ),
@@ -46,6 +46,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<TransactionModel> _transactions = [];
+  bool _showChart = false;
 
   List<TransactionModel> get _recentTransactions {
     return _transactions.where((transaction) {
@@ -97,12 +98,54 @@ class _MyHomePageState extends State<MyHomePage> {
 
   AppBar get appBar => AppBar(
         title: Text('Personal Expenses'),
+        actions: _isLandscape
+            ? [
+                IconButton(
+                  icon: _showChart
+                      ? Icon(
+                          Icons.list_outlined,
+                          color: Theme.of(context).iconTheme.color,
+                        )
+                      : Icon(
+                          Icons.bar_chart_outlined,
+                          color: Theme.of(context).iconTheme.color,
+                        ),
+                  onPressed: () => setState(() {
+                    if (_showChart) {
+                      _showChart = false;
+                    } else {
+                      _showChart = true;
+                    }
+                  }),
+                )
+              ]
+            : null,
       );
 
   double get _calculateScreenHeight =>
       MediaQuery.of(context).size.height -
       MediaQuery.of(context).padding.top -
       appBar.preferredSize.height;
+
+  bool get _isLandscape =>
+      MediaQuery.of(context).orientation == Orientation.landscape;
+
+  Container _transactionChartContainer({double heightMultiplier = 1}) =>
+      Container(
+        height: _calculateScreenHeight * heightMultiplier,
+        child: TransactionChartWidget(
+          _recentTransactions,
+        ),
+      );
+
+  Container _transactionListContainer({double heightMultiplier = 1}) =>
+      Container(
+        height: _calculateScreenHeight * heightMultiplier,
+        child: TransactionListWidget(
+          transactions: _transactions,
+          deleteTransaction: _deleteTransaction,
+        ),
+      );
 
   @override
   Widget build(BuildContext context) {
@@ -113,24 +156,22 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Icon(Icons.add_outlined),
         onPressed: () => _startAddNewTransaction(),
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            SizedBox(
-              height: _calculateScreenHeight * 0.4,
-              child: TransactionChartWidget(_recentTransactions),
-            ),
-            SizedBox(
-              height: _calculateScreenHeight * 0.6,
-              child: TransactionListWidget(
-                transactions: _transactions,
-                deleteTransaction: _deleteTransaction,
+      body: _isLandscape
+          ? Center(
+              child: _showChart
+                  ? _transactionChartContainer()
+                  : _transactionListContainer(),
+            )
+          : SafeArea(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    _transactionChartContainer(heightMultiplier: 0.3),
+                    _transactionListContainer(heightMultiplier: 0.7),
+                  ],
+                ),
               ),
             ),
-          ],
-        ),
-      ),
     );
   }
 }
